@@ -32,6 +32,8 @@ export function useFormInput({
   useEffect(() => {
     if (value !== formValue) {
       setValue(formValue);
+      setIsTouched(false);
+      setIsFocused(false);
     }
   }, [formValue]);
 
@@ -44,7 +46,6 @@ export function useFormInput({
   function handleChange({ target }) {
     let { value } = target;
     if (callback) value = callback(value);
-    console.log('c', callback, value)
 
     setValue(value);
     setFormData({
@@ -119,16 +120,13 @@ export function useForm(defaultValues, invalidAttr = { error: true }) {
 }
 
 export function validate(value, validation) {
-  const fieldsToValidate = [];
+  const fieldsToValidate = {};
   let trimmedValidation;
 
   switch (typeof validation) {
     case 'object':
       Object.keys(validation).forEach(property => {
-        fieldsToValidate.push({
-          rule: property,
-          options: validation[property]
-        });
+        fieldsToValidate[property] = validation[property]
       });
       break;
 
@@ -138,16 +136,21 @@ export function validate(value, validation) {
 
       trimmedValidation = validation.replace(/ /g, '');
       trimmedValidation.split(',').forEach(fieldName => {
-        fieldsToValidate.push({
-          rule: fieldName.trim()
-        });
+        fieldsToValidate[fieldName.trim()] = true;
       });
   }
 
+  // check whether we do need to validate at all
+  const isRequired = fieldsToValidate.isRequired || (fieldsToValidate.isEmpty && fieldsToValidate.isEmpty !== false);
+  if (!value && !isRequired) return true;
+
   let isValid = true;
 
-  for (let i = 0; i < fieldsToValidate.length; i++) {
-    const { rule, options = null } = fieldsToValidate[i];
+  Object.keys(fieldsToValidate).forEach(rule => {
+    // don't proceed if we're already invalid
+    if (!isValid) return;
+
+    const options = fieldsToValidate[rule];
 
     switch (rule) {
       case 'isRequired':
@@ -167,9 +170,7 @@ export function validate(value, validation) {
             isValid = validator[rule](value, options);
         }
     }
-
-    if (!isValid) break;
-  }
+  });
 
   return isValid;
 }
