@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.css';
 
-import MaterialForm from './components/MaterialForm';
-import CustomForm from './components/CustomForm';
-import ResettingForm from './components/ResettingForm';
-import ErrorsForm from './components/ErrorsForm';
+import MaterialForm from './examples/MaterialForm';
+import CustomForm from './examples/CustomForm';
+import ResettingForm from './examples/ResettingForm';
+import ErrorsForm from './examples/ErrorsForm';
 
 const App = () => (
   <div className="container">

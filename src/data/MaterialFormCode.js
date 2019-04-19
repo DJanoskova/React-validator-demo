@@ -1,4 +1,4 @@
-import React from 'react';
+export default `import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -49,4 +49,4 @@ const MaterialForm = ({ classes }) => {
   )
 };
 
-export default withStyles(styles)(MaterialForm);
+export default withStyles(styles)(MaterialForm);`

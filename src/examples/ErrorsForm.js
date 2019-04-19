@@ -1,6 +1,9 @@
 import React from 'react';
 
 import { useForm } from '../utils/validator';
+import CustomFormCode from '../data/CustomFormCode';
+import ToggleCode from '../components/ToggleCode';
+import ErrorsFormCode from '../data/ErrorsFormCode';
 
 const ErrorsForm = () => {
   const defaultValues = {
@@ -81,10 +84,7 @@ const ErrorsForm = () => {
 
       <pre>{JSON.stringify(errors, null, 2)}</pre>
 
-      {/*{!!errors.length && 'Invalid fields:'}*/}
-      {/*<ul>*/}
-      {/*{errors.map(error => <li key={error}>{error}</li>)}*/}
-      {/*</ul>*/}
+      <ToggleCode code={ErrorsFormCode} />
     </>
   )
 };

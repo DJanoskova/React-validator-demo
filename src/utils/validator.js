@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import validator from 'validator';
 
-export function useFormInput({
+export function useInput({
   name,
   formHandler,
   validation = '',
   handleError,
-  defaultInvalidAttr,
-  callback
+  defaultInvalidAttr
 }) {
   const [formData, setFormData] = formHandler;
   const formValue = formData[name] || '';
@@ -45,7 +44,6 @@ export function useFormInput({
   // rewrite self and parent's value
   function handleChange({ target }) {
     let { value } = target;
-    if (callback) value = callback(value);
 
     setValue(value);
     setFormData({
@@ -95,7 +93,7 @@ export function useForm(defaultValues, invalidAttr = { error: true }) {
   };
 
   const useInput = (name, validation, callback = null) =>
-    useFormInput({
+    useInput({
       name,
       validation,
       formHandler,

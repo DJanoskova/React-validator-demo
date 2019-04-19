@@ -1,25 +1,23 @@
-import React from 'react';
+export default `import React from 'react';
 
 import { useForm } from '../utils/validator';
 
-const ResettingForm = () => {
+const CustomForm = () => {
   const defaultValues = {
     username: '',
-    email: ''
+    email: '',
+    age: ''
   };
   const customErrorAttribute = {
-    className: 'has-error'
+    className: 'has-error',
+    'another-attr': 'look-at-me'
   };
 
-  const { values, useInput, isValid, setValues } = useForm(defaultValues, customErrorAttribute);
+  const { values, useInput, isValid } = useForm(defaultValues, customErrorAttribute);
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(values);
-    setValues({
-      username: '',
-      email: ''
-    })
+    console.log(values)
   };
 
   return (
@@ -33,10 +31,20 @@ const ResettingForm = () => {
           })}
         />
 
-        <label>E-mail *</label>
+        <label>E-mail</label>
         <input
           type="text"
-          {...useInput('email', 'isEmail, isRequired')}
+          {...useInput('email', 'isEmail')}
+        />
+
+        <label>Age</label>
+        <input
+          type="text"
+          {...useInput('age', {
+            isInt: {
+              min: 1
+            }
+          })}
         />
       </div>
 
@@ -47,4 +55,4 @@ const ResettingForm = () => {
   )
 };
 
-export default ResettingForm;
+export default CustomForm;`
