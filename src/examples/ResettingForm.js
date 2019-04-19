@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useForm } from '../utils/validator';
-import ErrorsFormCode from '../data/ErrorsFormCode';
 import ToggleCode from '../components/ToggleCode';
 import ResettingFormCode from '../data/ResettingFormCode';
 

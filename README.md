@@ -39,6 +39,8 @@ const MaterialForm = () => {
 
 I hear you, you know. It sure was, until now. But I've come to muddy the waters. Behold. Let go of everything you thought you knew.
 
+The Medium article: <a href="https://medium.com/@info_53938/how-i-tried-to-validate-react-forms-with-hooks-31634fc5385b">https://medium.com/@info_53938/how-i-tried-to-validate-react-forms-with-hooks-31634fc5385b</a>
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

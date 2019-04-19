@@ -28,6 +28,22 @@ const App = () => (
 
     <h3>List of invalid fields</h3>
     <ErrorsForm />
+
+    <hr />
+
+    <div className="text-center">
+      <a href="https://medium.com/@info_53938/how-i-tried-to-validate-react-forms-with-hooks-31634fc5385b"
+        target="_blank"
+        className="link"
+        rel="noopener noreferrer">
+        How I tried to validate React forms (with hooks) at Medium
+      </a>
+      <br />
+      <a href="https://github.com/DJanoskova/React-validator-demo" target="_blank" rel="noopener noreferrer"
+        className="link">
+        The source code at GitHub
+      </a>
+    </div>
   </div>
 );
 

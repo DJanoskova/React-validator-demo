@@ -5,6 +5,14 @@ body {
     color: #222222;
 }
 
+a {
+    color: #e03d71;
+}
+
+a:hover {
+    color: #c33562;
+}
+
 h3 {
     font-weight: 100;
     color: #000000;
@@ -94,4 +102,13 @@ form {
 
 .small {
     font-size: 0.75rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.link {
+    font-size: 1.5rem;
+    line-height: 1.8;
 }
