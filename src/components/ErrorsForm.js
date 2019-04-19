@@ -30,6 +30,7 @@ const ErrorsForm = () => {
           type="text"
           {...useInput('username', 'isRequired')}
         />
+        {errors.username && <span>Username is required</span>}
 
         <label>E-mail *</label>
         <input
@@ -40,7 +41,12 @@ const ErrorsForm = () => {
         <label>Age *</label>
         <input
           type="text"
-          {...useInput('age', 'isInt, isRequired')}
+          {...useInput('age', {
+            isInt: {
+              min: 1
+            },
+            isRequired: true
+          })}
         />
 
         <label>Password * <span className="small">min. 6 characters</span></label>
@@ -70,10 +76,15 @@ const ErrorsForm = () => {
 
       <br />
 
-      {!!errors.length && 'Invalid fields:'}
-      <ul>
-        {errors.map(error => <li key={error}>{error}</li>)}
-      </ul>
+      You can check the errors object and the unmet criteria to create custom validation messages. Fill the form and
+      check how errors change.
+
+      <pre>{JSON.stringify(errors, null, 2)}</pre>
+
+      {/*{!!errors.length && 'Invalid fields:'}*/}
+      {/*<ul>*/}
+      {/*{errors.map(error => <li key={error}>{error}</li>)}*/}
+      {/*</ul>*/}
     </>
   )
 };

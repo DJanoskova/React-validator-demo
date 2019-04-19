@@ -1,6 +1,13 @@
 body {
     font-size: 16px;
     font-family: Arial, sans-serif;
+    margin: 0;
+    color: #222222;
+}
+
+h3 {
+    font-weight: 100;
+    color: #000000;
 }
 
 input, textarea, button {
@@ -8,8 +15,9 @@ input, textarea, button {
 }
 
 .container {
-    width: 900px;
+    max-width: 900px;
     margin: 2rem auto;
+    padding: 0 2rem;
 }
 
 hr {
@@ -25,6 +33,13 @@ input {
     margin-bottom: 1rem;
     display: block;
     margin-right: 1rem;
+}
+
+input + span {
+    margin-top: -0.7rem;
+    display: block;
+    color: red;
+    margin-bottom: 1rem;
 }
 
 .has-error {
@@ -57,11 +72,19 @@ form {
     border: 1px rgba(0, 0, 0, 0.05) solid;
 }
 
-.form-body {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+@media screen and (min-width: 1366px) {
+    .form-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    input {
+        display: block;
+    }
 }
 
 .form-body label {

@@ -18,9 +18,9 @@ export function useFormInput({
   const [isFocused, setIsFocused] = useState(false);
 
   function handleValidation(value) {
-    const isValid = validate(value, validation);
-    setIsValid(isValid);
-    handleError(name, isValid);
+    const unmetRule = validate(value, validation);
+    setIsValid(!unmetRule);
+    handleError(name, unmetRule);
   }
 
   // initial validation
@@ -28,7 +28,7 @@ export function useFormInput({
     handleValidation(value);
   }, []);
 
-  // watch for external parent data changes
+  // watch for external parent data changes in self
   useEffect(() => {
     if (value !== formValue) {
       setValue(formValue);
@@ -79,7 +79,7 @@ export function useFormInput({
 
 export function useForm(defaultValues, invalidAttr = { error: true }) {
   const formHandler = useState(defaultValues);
-  const errorHandler = useState([]);
+  const errorHandler = useState({});
   const [mounted, setMounted] = useState(false);
 
   const [values, setValues] = formHandler;
@@ -88,16 +88,10 @@ export function useForm(defaultValues, invalidAttr = { error: true }) {
   // initial mounted flag
   useEffect(() => setMounted(true), []);
 
-  const handleError = (name, isValid) => {
-    if (!isValid) {
-      errors.push(name);
-    } else {
-      const index = errors.findIndex(error => error === name);
-      if (index > -1) errors.splice(index, 1);
-    }
-
-    const uniqueErrors = [...new Set(errors)];
-    setErrors(uniqueErrors);
+  const handleError = (name, unmetRule) => {
+    if (!unmetRule) delete errors[name];
+    else errors[name] = unmetRule;
+    setErrors(errors);
   };
 
   const useInput = (name, validation, callback = null) =>
@@ -115,10 +109,16 @@ export function useForm(defaultValues, invalidAttr = { error: true }) {
     setValues,
     useInput,
     errors,
-    isValid: mounted && !errors.length
+    isValid: mounted && !Object.values(errors).length
   };
 }
 
+/**
+ * Returns either unmet rule, or null
+ * @param value
+ * @param validation
+ * @returns {*}
+ */
 export function validate(value, validation) {
   const fieldsToValidate = {};
   let trimmedValidation;
@@ -144,6 +144,7 @@ export function validate(value, validation) {
   const isRequired = fieldsToValidate.isRequired || (fieldsToValidate.isEmpty && fieldsToValidate.isEmpty !== false);
   if (!value && !isRequired) return true;
 
+  let unmetValidationRule = null;
   let isValid = true;
 
   Object.keys(fieldsToValidate).forEach(rule => {
@@ -170,7 +171,9 @@ export function validate(value, validation) {
             isValid = validator[rule](value, options);
         }
     }
+
+    if (!isValid) unmetValidationRule = rule;
   });
 
-  return isValid;
+  return unmetValidationRule || null;
 }
