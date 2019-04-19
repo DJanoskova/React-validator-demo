@@ -138,8 +138,8 @@ export function validate(value, validation) {
   }
 
   // check whether we do need to validate at all
-  const isRequired = fieldsToValidate.isRequired || (fieldsToValidate.isEmpty && fieldsToValidate.isEmpty !== false);
-  if (!value && !isRequired) return true;
+  const isRequired = fieldsToValidate.isRequired || fieldsToValidate.isEmpty === false;
+  if (!value && !isRequired) return null;
 
   let unmetValidationRule = null;
   let isValid = true;
