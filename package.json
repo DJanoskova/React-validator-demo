@@ -18,7 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "node server.js"
+    "start": "node server.js",
+    "autopush": "git add . && git commit -m 'autopush' && git push && git push heroku master"
   },
   "eslintConfig": {
     "extends": "react-app"

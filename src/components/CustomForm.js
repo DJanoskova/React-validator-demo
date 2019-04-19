@@ -40,7 +40,11 @@ const CustomForm = () => {
         <label>Age</label>
         <input
           type="number"
-          {...useInput('age', 'isInt')}
+          {...useInput('age', {
+            isInt: {
+              min: 1
+            }
+          })}
         />
       </div>
 
