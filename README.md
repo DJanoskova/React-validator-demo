@@ -1,3 +1,48 @@
+#React form hook validator
+Forms in React are pain to handle, am I rite or yes?
+
+Imagine you could validate them like this. Literally the only code you need.
+
+```
+const MaterialForm = () => {
+  const { values, useInput, isValid } = useForm({
+    username: '',
+    email: ''
+  });
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(values)
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <TextField
+        label="Username *"
+        {...useInput('username', 'isRequired')}
+      />
+
+      <TextField
+        label="E-mail *"
+        {...useInput('email', 'isRequired, isEmail')}
+      />
+
+      <Button type="submit"
+        disabled={!isValid}
+        className={classes.marginTop}>
+        Submit
+      </Button>
+    </form>
+  )
+};
+```
+
+> "That's impossible!"
+
+I hear you, you know. It sure was, until now. But I've come to muddy the waters. Behold. Let go of everything you thought you knew.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
