@@ -1,10 +1,14 @@
 body {
-    font-size: 14px;
+    font-size: 16px;
     font-family: Arial, sans-serif;
 }
 
+input, textarea, button {
+    font-size: 0.9rem;
+}
+
 .container {
-    width: 700px;
+    width: 900px;
     margin: 2rem auto;
 }
 
@@ -23,7 +27,7 @@ input {
     margin-right: 1rem;
 }
 
-input.has-error {
+.has-error {
     border-color: red;
 }
 
@@ -43,6 +47,14 @@ button {
 button:disabled {
     background: #e0e0e0;
     cursor: not-allowed;
+}
+
+form {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0.7rem rgba(0, 0, 0, 0.05);
+    border: 1px rgba(0, 0, 0, 0.05) solid;
 }
 
 .form-body {

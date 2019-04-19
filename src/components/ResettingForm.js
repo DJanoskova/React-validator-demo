@@ -15,7 +15,7 @@ const ResettingForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(values)
+    console.log(values);
     setValues({
       username: '',
       email: ''
