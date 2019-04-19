@@ -3,11 +3,7 @@ Forms in React are pain to handle, am I rite or yes? 🤷🏻
 
 Imagine you could validate them like this. Literally the only code you need.
 
-`npm install @djanoskova/react-validator --save`
-
 ```
-import { useForm } from '@djanoskova/react-validator';
-
 const MaterialForm = () => {
   const { values, useInput, isValid } = useForm({
     username: '',
