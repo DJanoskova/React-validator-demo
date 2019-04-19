@@ -129,7 +129,7 @@ export function validate(value, validation) {
 
     case 'string':
     default:
-      if (!validation.length) return true;
+      if (!validation.length) return null;
 
       trimmedValidation = validation.replace(/ /g, '');
       trimmedValidation.split(',').forEach(fieldName => {
