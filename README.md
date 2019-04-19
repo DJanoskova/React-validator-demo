@@ -1,5 +1,5 @@
-#React form hook validator
-Forms in React are pain to handle, am I rite or yes?
+# React form hook validator
+Forms in React are pain to handle, am I rite or yes? 🤷🏻
 
 Imagine you could validate them like this. Literally the only code you need.
 
@@ -27,9 +27,7 @@ const MaterialForm = () => {
         {...useInput('email', 'isRequired, isEmail')}
       />
 
-      <Button type="submit"
-        disabled={!isValid}
-        className={classes.marginTop}>
+      <Button type="submit" disabled={!isValid}>
         Submit
       </Button>
     </form>

@@ -54,7 +54,7 @@
           <entry key="html" value="68" />
           <entry key="js" value="4892" />
           <entry key="json" value="107" />
-          <entry key="md" value="11" />
+          <entry key="md" value="357" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -63,7 +63,7 @@
           <entry key="HTML" value="68" />
           <entry key="JSON" value="107" />
           <entry key="JavaScript" value="4892" />
-          <entry key="Markdown" value="11" />
+          <entry key="Markdown" value="357" />
         </counts>
       </usages-collector>
     </session>
@@ -87,7 +87,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor>
-                <caret lean-forward="true" />
+                <caret column="2" selection-start-column="2" selection-end-column="2" />
               </first_editor>
               <second_editor />
             </state>
@@ -251,24 +251,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1555655922127</updated>
-      <workItem from="1555655923410" duration="12910000" />
+      <workItem from="1555655923410" duration="13195000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12910000" />
+    <option name="totallyTimeSpent" value="13195000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="npm" side_tool="true" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24954791" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24954791" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.36791444" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.36791444" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -436,7 +435,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor>
-            <caret lean-forward="true" />
+            <caret column="2" selection-start-column="2" selection-end-column="2" />
           </first_editor>
           <second_editor />
         </state>
