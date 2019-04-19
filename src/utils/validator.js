@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import validator from 'validator';
 
-export function useInput({
+export function useFormInput({
   name,
   formHandler,
   validation = '',
@@ -92,13 +92,12 @@ export function useForm(defaultValues, invalidAttr = { error: true }) {
     setErrors(errors);
   };
 
-  const useInput = (name, validation, callback = null) =>
-    useInput({
+  const useInput = (name, validation) =>
+    useFormInput({
       name,
       validation,
       formHandler,
       handleError,
-      callback,
       defaultInvalidAttr: invalidAttr
     });
 
