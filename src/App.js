@@ -14,7 +14,8 @@ const App = () => (
     <hr />
 
     <h3>Form with custom error input class</h3>
-    <p>We're adding a <code>.has-error</code> class to the inputs</p>
+    <p>We're adding a <code>.has-error</code> class to the inputs. We're also adding
+      a <code>another-attr</code> attribute to show the possibility to add more error attributes.</p>
     <CustomForm />
 
     <hr />

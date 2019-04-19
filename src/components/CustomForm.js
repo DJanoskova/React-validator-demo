@@ -9,7 +9,8 @@ const CustomForm = () => {
     age: null
   };
   const customErrorAttribute = {
-    className: 'has-error'
+    className: 'has-error',
+    'another-attr': 'look-at-me'
   };
 
   const { values, useInput, isValid } = useForm(defaultValues, customErrorAttribute);

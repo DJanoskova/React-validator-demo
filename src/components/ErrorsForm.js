@@ -6,7 +6,9 @@ const ErrorsForm = () => {
   const defaultValues = {
     username: '',
     email: '',
-    age: ''
+    age: '',
+    password: '',
+    passwordVerification: ''
   };
   const customErrorAttribute = {
     className: 'has-error'
@@ -22,25 +24,44 @@ const ErrorsForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="form-body">
-          <label>Username *</label>
-          <input
-            type="text"
-            {...useInput('username', 'isRequired')}
-          />
 
-          <label>E-mail *</label>
-          <input
-            type="text"
-            {...useInput('email', 'isEmail, isRequired')}
-          />
+        <label>Username *</label>
+        <input
+          type="text"
+          {...useInput('username', 'isRequired')}
+        />
 
-          <label>Age *</label>
-          <input
-            type="text"
-            {...useInput('age', 'isInt, isRequired')}
-          />
-        </div>
+        <label>E-mail *</label>
+        <input
+          type="text"
+          {...useInput('email', 'isEmail, isRequired')}
+        />
+
+        <label>Age *</label>
+        <input
+          type="text"
+          {...useInput('age', 'isInt, isRequired')}
+        />
+
+        <label>Password * <span className="small">min. 6 characters</span></label>
+        <input
+          type="password"
+          {...useInput('password', {
+            isRequired: true,
+            isLength: {
+              min: 6
+            }
+          })}
+        />
+
+        <label>Password verification</label>
+        <input
+          type="password"
+          {...useInput('passwordVerification', {
+            isRequired: true,
+            equals: values.password
+          })}
+        />
 
         <button type="submit" disabled={!isValid}>
           Submit
