@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@djanoskova/react-validator": "^1.0.0",
     "@material-ui/core": "^3.9.3",
     "add": "^2.0.6",
     "express": "^4.16.4",
