@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0e6e082c-8448-4a26-8559-778e8a03639a" name="Default Changelist" comment="" />
+    <list default="true" id="0e6e082c-8448-4a26-8559-778e8a03639a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/validator.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -54,7 +57,7 @@
         <counts>
           <entry key="css" value="1003" />
           <entry key="html" value="68" />
-          <entry key="js" value="6020" />
+          <entry key="js" value="6022" />
           <entry key="json" value="107" />
           <entry key="md" value="423" />
         </counts>
@@ -64,7 +67,7 @@
           <entry key="CSS" value="1003" />
           <entry key="HTML" value="68" />
           <entry key="JSON" value="107" />
-          <entry key="JavaScript" value="6020" />
+          <entry key="JavaScript" value="6022" />
           <entry key="Markdown" value="423" />
         </counts>
       </usages-collector>
@@ -105,16 +108,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils/validator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-12">
-              <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+            <state relative-caret-position="339">
+              <caret line="77" column="23" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/examples/TooltipForm.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
@@ -129,8 +132,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/validatorWithTooltip.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1065">
-              <caret line="72" column="23" selection-start-line="72" selection-start-column="23" selection-end-line="72" selection-end-column="23" />
+            <state relative-caret-position="338">
+              <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -203,13 +206,13 @@
         <option value="$PROJECT_DIR$/src/examples/MaterialForm.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/components/MaliciousInput.js" />
-        <option value="$PROJECT_DIR$/src/utils/validator.js" />
         <option value="$PROJECT_DIR$/src/utils/validatorWithFocusedTooltip.js" />
         <option value="$PROJECT_DIR$/src/examples/CustomForm.js" />
         <option value="$PROJECT_DIR$/src/index.css" />
-        <option value="$PROJECT_DIR$/src/utils/validatorWithTooltip.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/examples/TooltipForm.js" />
+        <option value="$PROJECT_DIR$/src/utils/validatorWithTooltip.js" />
+        <option value="$PROJECT_DIR$/src/utils/validator.js" />
       </list>
     </option>
   </component>
@@ -333,10 +336,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21323000" />
+    <option name="totallyTimeSpent" value="21699000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24954791" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -468,13 +472,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/validator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12">
-          <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/examples/CustomForm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -499,13 +496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/validatorWithTooltip.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="72" column="23" selection-start-line="72" selection-start-column="23" selection-end-line="72" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -523,6 +513,20 @@
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/validatorWithTooltip.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/validator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="77" column="23" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
         </state>
       </provider>
     </entry>

@@ -5,7 +5,6 @@ export function useFormInput({
   name,
   formHandler,
   validation = '',
-  tooltip = '',
   handleError,
   defaultInvalidAttr
 }) {
@@ -76,7 +75,6 @@ export function useFormInput({
     onChange: handleChange,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    'data-tooltip': isFocused && tooltip ? tooltip : '',
     ...invalidAttr
   };
 }
@@ -98,11 +96,10 @@ export function useForm(defaultValues, invalidAttr = { error: true }) {
     setErrors(errors);
   };
 
-  const useInput = (name, validation, tooltip) =>
+  const useInput = (name, validation) =>
     useFormInput({
       name,
       validation,
-      tooltip,
       formHandler,
       handleError,
       defaultInvalidAttr: invalidAttr
