@@ -73,7 +73,6 @@ export function useFormInput({
     onFocus: handleFocus,
     onBlur: handleBlur,
     helperText: isFocused && tooltip ? tooltip : '',
-    test: 'ok',
     ...invalidAttr
   };
 }
