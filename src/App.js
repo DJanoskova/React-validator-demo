@@ -32,6 +32,7 @@ const App = () => (
 
     <hr />
 
+    <h3>A demo of enhanced validator that shows helper text on hover</h3>
     <TooltipForm />
 
     <hr />

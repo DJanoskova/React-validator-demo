@@ -25,6 +25,11 @@ const CustomForm = () => {
         {...useInput('withCustomText', 'isRequired', 'You\'re focusing me now')}
       />
 
+      <TextField
+        label="With custom text 2"
+        {...useInput('withCustomText2', 'isRequired', 'And now it\'s me for a change')}
+      />
+
       <br />
       <br />
 
