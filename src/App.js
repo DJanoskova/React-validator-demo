@@ -5,6 +5,7 @@ import MaterialForm from './examples/MaterialForm';
 import CustomForm from './examples/CustomForm';
 import ResettingForm from './examples/ResettingForm';
 import ErrorsForm from './examples/ErrorsForm';
+import TooltipForm from './examples/TooltipForm';
 
 const App = () => (
   <div className="container">
@@ -28,6 +29,10 @@ const App = () => (
 
     <h3>List of invalid fields</h3>
     <ErrorsForm />
+
+    <hr />
+
+    <TooltipForm />
 
     <hr />
 

@@ -53,10 +53,6 @@ export function useFormInput({
     });
   }
 
-  useEffect(() => {
-    console.log('f', isFocused)
-  }, [isFocused]);
-
   const handleFocus = () => {
     if (!isTouched) setIsTouched(true);
     setIsFocused(true);
@@ -76,7 +72,7 @@ export function useFormInput({
     onChange: handleChange,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    'data-tooltip': isFocused && tooltip ? tooltip : '',
+    helperText: isFocused && tooltip ? tooltip : '',
     test: 'ok',
     ...invalidAttr
   };
