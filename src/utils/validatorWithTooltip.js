@@ -44,12 +44,14 @@ export function useFormInput({
 
   // rewrite self and parent's value
   function handleChange({ target }) {
-    let { value } = target;
+    let { value, type, checked } = target;
+    
+    const newValue = type === 'checkbox' ? checked : value;
 
     setValue(value);
     setFormData({
       ...formData,
-      [name]: value
+      [name]: newValue
     });
   }
 
