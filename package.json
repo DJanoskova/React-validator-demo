@@ -5,12 +5,13 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "add": "^2.0.6",
+    "dot-object": "^1.7.1",
     "express": "^4.16.4",
     "express-favicon": "^2.0.1",
     "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8",
+    "react-scripts": "^3.0.1",
     "validator": "^10.11.0"
   },
   "scripts": {

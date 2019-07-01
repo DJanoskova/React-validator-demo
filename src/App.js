@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 
 import MaterialForm from './examples/MaterialForm';
+import NestedForm from './examples/NestedForm';
 import CustomForm from './examples/CustomForm';
 import ResettingForm from './examples/ResettingForm';
 import ErrorsForm from './examples/ErrorsForm';
@@ -11,6 +12,9 @@ const App = () => (
   <div className="container">
     <h3>Simple material form</h3>
     <MaterialForm />
+
+    <h3>NEW - Nested values</h3>
+    <NestedForm />
 
     <hr />
 
