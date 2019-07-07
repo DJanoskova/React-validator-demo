@@ -21,7 +21,8 @@ export function useFormInput({
   name,
   validation = '',
   values: formData,
-  setValues: setFormData
+  setValues: setFormData,
+  defaultInvalidAttr
 }) {
   const formValue = dot.pick(name, formData) || '';
 
@@ -77,17 +78,20 @@ export function useFormInput({
     setIsFocused(false);
   }, [setIsFocused]);
 
+  const showError = !isValid && isTouched && !isFocused;
+  const invalidAttr = showError ? defaultInvalidAttr : null;
+
   return {
     value,
     name,
     onChange: handleChange,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    error: !isValid && isTouched && !isFocused
+    ...invalidAttr
   };
 }
 
-export function useForm (defaultValues) {
+export function useForm (defaultValues, invalidAttr = { error: true }) {
   const [values, setValues] = useState(defaultValues);
   const [mounted, setMounted] = useState(false);
 
@@ -103,7 +107,8 @@ export function useForm (defaultValues) {
     name,
     validation,
     values,
-    setValues
+    setValues,
+    defaultInvalidAttr: invalidAttr
   });
 
   return {

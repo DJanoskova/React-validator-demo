@@ -1,69 +1,83 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import validator from 'validator';
+import dot from 'dot-object';
 
-export function useFormInput({
+/** errors outsourced outside of our hooks
+ as we don't really need them in the state */
+let formErrors = [];
+
+function handleError (name, isValid) {
+  if (!isValid) {
+    formErrors.push(name);
+  } else {
+    const index = formErrors.findIndex(error => error === name);
+    if (index > -1) formErrors.splice(index, 1);
+  }
+
+  formErrors = [...new Set(formErrors)];
+}
+
+export function useFormInput ({
   name,
-  formHandler,
   validation = '',
   tooltip = '',
-  handleError,
+  values: formData,
+  setValues: setFormData,
   defaultInvalidAttr
 }) {
-  const [formData, setFormData] = formHandler;
-  const formValue = formData[name] || '';
+  const formValue = dot.pick(name, formData) || '';
 
   const [value, setValue] = useState(formValue);
   const [isValid, setIsValid] = useState(true);
   const [isTouched, setIsTouched] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
-  function handleValidation(value) {
-    const unmetRule = validate(value, validation);
-    setIsValid(!unmetRule);
-    handleError(name, unmetRule);
-  }
+  const [validationRules] = useState(validation);
 
-  // initial validation
-  useEffect(() => {
-    handleValidation(value);
-  }, []);
+  const handleValidation = useCallback(() => {
+    const isValid = validate(value, validationRules);
+    setIsValid(isValid);
+    handleError(name, isValid);
+  }, [setIsValid, validationRules, name, value]);
 
-  // watch for external parent data changes in self
+  // watch for external parent data changes
   useEffect(() => {
     if (value !== formValue) {
       setValue(formValue);
       setIsTouched(false);
       setIsFocused(false);
     }
-  }, [formValue]);
+  }, [formValue, value, setValue, setIsFocused, setIsTouched]);
 
   // validate on value change
   useEffect(() => {
-    handleValidation(value);
-  }, [value]);
+    handleValidation();
+  }, [handleValidation, name]);
 
   // rewrite self and parent's value
-  function handleChange({ target }) {
-    let { value, type, checked } = target;
-    
+  const handleChange = useCallback(({ target }) => {
+    const { value, checked, type } = target;
     const newValue = type === 'checkbox' ? checked : value;
 
-    setValue(value);
-    setFormData({
-      ...formData,
-      [name]: newValue
-    });
-  }
+    // using dot helps us change nested values
+    let data;
+    const isNested = name.includes('.');
+    if (isNested) data = dot.str(name, newValue, { ...formData });
+    else data = { ...formData, [name]: newValue };
 
-  const handleFocus = () => {
-    if (!isTouched) setIsTouched(true);
+    setValue(newValue);
+    setFormData(data);
+  }, [setValue, formData, setFormData, name]);
+
+  const handleFocus = useCallback(() => {
+    setIsTouched(true);
     setIsFocused(true);
-    handleValidation(value);
-  };
+    handleValidation();
+  }, [setIsTouched, setIsFocused, handleValidation]);
 
-  const handleBlur = () => {
+  const handleBlur = useCallback(() => {
     setIsFocused(false);
-  };
+  }, [setIsFocused]);
 
   const showError = !isValid && isTouched && !isFocused;
   const invalidAttr = showError ? defaultInvalidAttr : null;
@@ -71,47 +85,41 @@ export function useFormInput({
   return {
     value,
     name,
+    helperText: isFocused && tooltip ? tooltip : '',
     onChange: handleChange,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    helperText: isFocused && tooltip ? tooltip : '',
     ...invalidAttr
   };
 }
 
-export function useForm(defaultValues, invalidAttr = { error: true }) {
-  const formHandler = useState(defaultValues);
-  const errorHandler = useState({});
+export function useForm (defaultValues, invalidAttr = { error: true }) {
+  const [values, setValues] = useState(defaultValues);
   const [mounted, setMounted] = useState(false);
 
-  const [values, setValues] = formHandler;
-  const [errors, setErrors] = errorHandler;
+  useEffect(() => {
+    setMounted(true);
 
-  // initial mounted flag
-  useEffect(() => setMounted(true), []);
+    return () => {
+      formErrors = [];
+    };
+  }, []);
 
-  const handleError = (name, unmetRule) => {
-    if (!unmetRule) delete errors[name];
-    else errors[name] = unmetRule;
-    setErrors(errors);
-  };
-
-  const useInput = (name, validation, tooltip) =>
-    useFormInput({
-      name,
-      validation,
-      tooltip,
-      formHandler,
-      handleError,
-      defaultInvalidAttr: invalidAttr
-    });
+  const useInput = (name, validation, tooltip) => useFormInput({
+    name,
+    validation,
+    tooltip,
+    values,
+    setValues,
+    defaultInvalidAttr: invalidAttr
+  });
 
   return {
     values,
     setValues,
     useInput,
-    errors,
-    isValid: mounted && !Object.values(errors).length
+    errors: formErrors,
+    isValid: mounted && !formErrors.length
   };
 }
 
@@ -121,61 +129,51 @@ export function useForm(defaultValues, invalidAttr = { error: true }) {
  * @param validation
  * @returns {*}
  */
-export function validate(value, validation) {
-  const fieldsToValidate = {};
+export function validate (value, validation) {
+  const fields = [];
+
   let trimmedValidation;
+  let validatingFields;
 
   switch (typeof validation) {
     case 'object':
       Object.keys(validation).forEach(property => {
-        fieldsToValidate[property] = validation[property]
+        fields.push({
+          rule: property,
+          options: validation[property]
+        });
       });
       break;
 
     case 'string':
     default:
-      if (!validation.length) return null;
-
+      if (!validation.length) return true;
       trimmedValidation = validation.replace(/ /g, '');
-      trimmedValidation.split(',').forEach(fieldName => {
-        fieldsToValidate[fieldName.trim()] = true;
+      validatingFields = trimmedValidation.split(',');
+      validatingFields.forEach(fieldName => {
+        fields.push({
+          rule: fieldName
+        });
       });
   }
 
-  // check whether we do need to validate at all
-  const isRequired = fieldsToValidate.isRequired || fieldsToValidate.isEmpty === false;
-  if (!value && !isRequired) return null;
-
-  let unmetValidationRule = null;
   let isValid = true;
 
-  Object.keys(fieldsToValidate).forEach(rule => {
-    // don't proceed if we're already invalid
-    if (!isValid) return;
+  fields.forEach(field => {
+    const { rule, options = null } = field;
 
-    const options = fieldsToValidate[rule];
-
-    switch (rule) {
+    switch (rule.trim()) {
       case 'isRequired':
         if (!value) isValid = false;
         break;
-
       default:
-        switch (options) {
-          case true:
-          case null:
-            isValid = validator[rule](value);
-            break;
-          case false:
-            isValid = !validator[rule](value);
-            break;
-          default:
-            isValid = validator[rule](value, options);
+        if (isValid) {
+          if (options) isValid = validator[rule](value, options);
+          else isValid = validator[rule](value);
         }
+        break;
     }
-
-    if (!isValid) unmetValidationRule = rule;
   });
 
-  return unmetValidationRule || null;
+  return isValid;
 }

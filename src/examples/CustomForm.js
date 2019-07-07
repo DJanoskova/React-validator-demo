@@ -30,7 +30,7 @@ const CustomForm = () => {
           <input
             type="text"
             {...useInput('username', {
-              isEmpty: false
+              isRequired: true
             })}
           />
 
