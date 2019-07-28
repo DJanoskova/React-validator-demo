@@ -2,27 +2,13 @@ import { useEffect, useState, useCallback } from 'react';
 import validator from 'validator';
 import dot from 'dot-object';
 
-/** errors outsourced outside of our hooks
- as we don't really need them in the state */
-let formErrors = [];
-
-function handleError (name, isValid) {
-  if (!isValid) {
-    formErrors.push(name);
-  } else {
-    const index = formErrors.findIndex(error => error === name);
-    if (index > -1) formErrors.splice(index, 1);
-  }
-
-  formErrors = [...new Set(formErrors)];
-}
-
-export function useFormInput({
+export function useFormInput ({
   name,
   validation = '',
   values: formData,
   setValues: setFormData,
-  defaultInvalidAttr
+  defaultInvalidAttr,
+  handleError
 }) {
   const formValue = dot.pick(name, formData) || '';
 
@@ -37,7 +23,7 @@ export function useFormInput({
     const isValid = validate(value, validationRules);
     setIsValid(isValid);
     handleError(name, isValid);
-  }, [setIsValid, validationRules, name, value]);
+  }, [setIsValid, validationRules, name, value, handleError]);
 
   // watch for external parent data changes
   useEffect(() => {
@@ -94,13 +80,23 @@ export function useFormInput({
 export function useForm (defaultValues, invalidAttr = { error: true }) {
   const [values, setValues] = useState(defaultValues);
   const [mounted, setMounted] = useState(false);
+  const [formErrors, setFormErrors] = useState([]);
+
+  const handleError = useCallback((name, isValid) => {
+    let errors = formErrors;
+    const index = errors.findIndex(error => error === name);
+
+    if (!isValid) {
+      if (index < 0) errors.push(name);
+    } else {
+      if (index > -1) errors.splice(index, 1);
+    }
+
+    setFormErrors(errors);
+  }, [formErrors]);
 
   useEffect(() => {
     setMounted(true);
-
-    return () => {
-      formErrors = [];
-    };
   }, []);
 
   const useInput = (name, validation) => useFormInput({
@@ -108,7 +104,8 @@ export function useForm (defaultValues, invalidAttr = { error: true }) {
     validation,
     values,
     setValues,
-    defaultInvalidAttr: invalidAttr
+    defaultInvalidAttr: invalidAttr,
+    handleError
   });
 
   return {
@@ -126,7 +123,7 @@ export function useForm (defaultValues, invalidAttr = { error: true }) {
  * @param validation
  * @returns {*}
  */
-export function validate(value, validation) {
+export function validate (value, validation) {
   const fields = [];
 
   let trimmedValidation;
