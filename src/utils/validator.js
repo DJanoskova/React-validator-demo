@@ -47,7 +47,10 @@ export function useFormInput ({
     // using dot helps us change nested values
     let data;
     const isNested = name.includes('.');
-    if (isNested) data = dot.str(name, newValue, { ...formData });
+    if (isNested) {
+      dot.override = true;
+      data = dot.str(name, newValue, { ...formData });
+    }
     else data = { ...formData, [name]: newValue };
 
     setValue(newValue);
