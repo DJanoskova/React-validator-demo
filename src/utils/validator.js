@@ -156,19 +156,31 @@ export function validate (value, validation) {
 
   let isValid = true;
 
-  fields.forEach(field => {
-    const { rule, options = null } = field;
+fields.forEach(field => {
+    const { rule, options = null } = field
 
     switch (rule.trim()) {
       case 'isRequired':
-        if (!value) isValid = false;
-        break;
+        if (!value) isValid = false
+        break
       default:
         if (isValid) {
-          if (options) isValid = validator[rule](value, options);
-          else isValid = validator[rule](value);
+          if (options !== null) {
+            let result
+            switch (options) {
+              case true:
+                result = validator[rule](value);
+                break
+              case false:
+                result = !validator[rule](value);
+                break
+              default:
+                result = validator[rule](value, options);
+            }
+            isValid = result
+          } else isValid = validator[rule](value);
+          break
         }
-        break;
     }
   });
 
