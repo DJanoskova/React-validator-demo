@@ -20,6 +20,10 @@ const App = () => (
     <hr />
 
     <h3>NEW - Checkbox group</h3>
+    <p>
+      Use the new function <code>useCheckboxGroup</code> from <code>useForm()</code> - the first argument is the
+      property <strong>name</strong> and the second is the checkbox <strong>value</strong>
+    </p>
     <CheckboxGroupForm />
 
     <hr />
