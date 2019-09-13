@@ -3,6 +3,7 @@ import './index.css';
 
 import MaterialForm from './examples/MaterialForm';
 import NestedForm from './examples/NestedForm';
+import CheckboxGroupForm from './examples/CheckboxGroupForm';
 import CustomForm from './examples/CustomForm';
 import ResettingForm from './examples/ResettingForm';
 import ErrorsForm from './examples/ErrorsForm';
@@ -13,8 +14,13 @@ const App = () => (
     <h3>Simple material form</h3>
     <MaterialForm />
 
-    <h3>NEW - Nested values</h3>
+    <h3>Nested values</h3>
     <NestedForm />
+
+    <hr />
+
+    <h3>NEW - Checkbox group</h3>
+    <CheckboxGroupForm />
 
     <hr />
 

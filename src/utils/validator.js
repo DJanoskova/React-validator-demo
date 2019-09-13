@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import validator from 'validator';
 import dot from 'dot-object';
 
-export function useFormInput ({
+export function useFormInput({
   name,
   validation = '',
   values: formData,
@@ -50,8 +50,7 @@ export function useFormInput ({
     if (isNested) {
       dot.override = true;
       data = dot.str(name, newValue, { ...formData });
-    }
-    else data = { ...formData, [name]: newValue };
+    } else data = { ...formData, [name]: newValue };
 
     setValue(newValue);
     setFormData(data);
@@ -80,7 +79,58 @@ export function useFormInput ({
   };
 }
 
-export function useForm (defaultValues, invalidAttr = { error: true }) {
+export function useFormCheckboxGroup({
+  name,
+  value,
+  values: formData,
+  setValues: setFormData
+}) {
+  const formValue = dot.pick(name, formData) || [];
+  const hasValue = formValue.indexOf(value) > -1;
+
+  const [checked, setChecked] = useState(hasValue);
+
+  // watch for external parent data changes
+  useEffect(() => {
+    const isChecked = formValue.indexOf(value) > -1;
+    setChecked(isChecked)
+  }, [formValue, value]);
+
+  // rewrite self and parent's value
+  const handleChange = useCallback(({ target }) => {
+    const oldValue = dot.pick(name, formData) || [];
+    const { checked } = target;
+    let newValue;
+
+    const index = oldValue.indexOf(value);
+    if (checked && index < 0) {
+      newValue = [...oldValue, value]
+    } else if (!checked && index > -1) {
+      newValue = oldValue.filter(v => v !== value);
+    }
+
+    // using dot helps us change nested values
+    let data;
+    const isNested = name.includes('.');
+    if (isNested) {
+      dot.override = true;
+      data = dot.str(name, newValue, { ...formData });
+    } else {
+      data = { ...formData, [name]: newValue };
+    }
+
+    setChecked(checked);
+    setFormData(data);
+  }, [value, formData, setFormData, name]);
+
+  return {
+    name,
+    checked,
+    onChange: handleChange
+  };
+}
+
+export function useForm(defaultValues, invalidAttr = { error: true }) {
   const [values, setValues] = useState(defaultValues);
   const [mounted, setMounted] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
@@ -111,10 +161,13 @@ export function useForm (defaultValues, invalidAttr = { error: true }) {
     handleError
   });
 
+  const useCheckboxGroup = (name, value) => useFormCheckboxGroup({ name, values, setValues, value });
+
   return {
     values,
     setValues,
     useInput,
+    useCheckboxGroup,
     errors: formErrors,
     isValid: mounted && !formErrors.length
   };
@@ -126,7 +179,7 @@ export function useForm (defaultValues, invalidAttr = { error: true }) {
  * @param validation
  * @returns {*}
  */
-export function validate (value, validation) {
+export function validate(value, validation) {
   const fields = [];
 
   let trimmedValidation;
@@ -156,7 +209,7 @@ export function validate (value, validation) {
 
   let isValid = true;
 
-fields.forEach(field => {
+  fields.forEach(field => {
     const { rule, options = null } = field
 
     switch (rule.trim()) {

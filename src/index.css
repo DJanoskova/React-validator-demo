@@ -100,6 +100,17 @@ form {
     margin: 0.3rem 0.5rem 0 0;
 }
 
+.form-checkbox-group label {
+    display: block;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.form-checkbox-group input {
+    display: inline-block;
+    float: left;
+}
+
 .small {
     font-size: 0.75rem;
 }
