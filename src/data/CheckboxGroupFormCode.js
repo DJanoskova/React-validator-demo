@@ -1,8 +1,6 @@
 export default `import React from 'react';
 
 import { useForm } from '../utils/validator';
-import ToggleCode from '../components/ToggleCode';
-import CheckboxGroupFormCode from '../data/CheckboxGroupFormCode';
 
 const CheckboxGroupForm = () => {
   const defaultValues = {
